@@ -12,7 +12,7 @@ let gameOver = false;
         if (gameOver){
             window.location = './indexSnake.html';
             if(confirm("Click \"OK\" To Play Again.")) {
-                window.location = './indexSnake.html';
+                window.location = './index.html';
             }
             return
         }
