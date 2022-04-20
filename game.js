@@ -1,27 +1,37 @@
 import {update as updateSnake, draw as drawSnake, snakeSpeed, getSnakeHead, snakeIntersect} from "./snake.js";
 import {update as updateApple, draw as drawApple} from "./apple.js";
-import{outsideGrid} from "./grid.js"
+import{outsideGrid} from "./grid.js"; 
+import { stateOfGame} from "./menu.js";
+
 let lastRenderTime = 0;
 const gameBoard = document.getElementById("game_board");
 let gameOver = false;
-function main(currentTime){
 
-    if (gameOver){
-        if(confirm("Imagine Losing")) {
+    function main(currentTime){
+
+        if (gameOver){
             window.location = './indexSnake.html';
+            if(confirm("Click \"OK\" To Play Again.")) {
+                window.location = './indexSnake.html';
+            }
+            return
         }
-        return
+        window.requestAnimationFrame(main);
+        const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
+        if(secondsSinceLastRender < 1/snakeSpeed) return
+
+        lastRenderTime = currentTime;
+        if(stateOfGame)
+        {
+            update();
+            draw();
+            checkDeath();
+        }
     }
     window.requestAnimationFrame(main);
-    const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
-    if(secondsSinceLastRender < 1/snakeSpeed) return
 
-    lastRenderTime = currentTime;
-    update();
-    draw();
-    checkDeath();
-}
-window.requestAnimationFrame(main);
+
+
 
 //color code the board
 
@@ -51,3 +61,9 @@ function draw() {
 function checkDeath() {
     gameOver = outsideGrid(getSnakeHead()) || snakeIntersect();
 }
+
+
+
+
+
+

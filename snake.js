@@ -38,7 +38,7 @@ export function getSnakeHead(){
     return snakeBody[0];
 }
 export function snakeIntersect() {
-    for(let i = 1; i < snakeBody.length+1; i++){
+    for(let i = 1; i < snakeBody.length; i++){
         if(equalPositions(snakeBody[0], snakeBody[i])){
             return true;
         }
